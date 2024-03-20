@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Bookshelf Apps</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alkalami&family=Lora:ital,wght@0,400..700;1,400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="konten-nav">
+      <div class="logo">
+        <a href="#"
+          ><img src="asset/logo.png" alt="Logo Peprustakaan Republik Indonesia"
+        /></a>
+      </div>
+      <nav class="list-nav">
+        <ul>
+          <li><a href="#">Beranda</a></li>
+          <li><a href="#tentang">Tambah Buku</a></li>
+          <li><a href="#koleksi">Koleksi</a></li>
+          <li><a href="#akun">Akun</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="konten-home">
+        <div class="home">
+          <h1>Selamat datang kembali Putri Adelia Khairunnisa</h1>
+          <p>Mulai membaca kembali, buku digitalmu</p>
+        </div>
+        <div class="search_section">
+          <h2>Cari Buku Disini</h2>
+          <form id="searchBook">
+            <label for="cari_judulBuku">Judul</label>
+            <input
+              id="cari_judulBuku"
+              type="text"
+              placeholder="Masukkan Judul Buku Yang Kamu Cari"
+            />
+            <button id="searchSubmit" type="submit">Cari</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="tentang">
+        <div class="fungsi">
+          <h2>Manajemen Buku Mandiri</h2>
+          <p>
+            Website yang disediakan oleh perpustakaan Republik Indonesia sebagai
+            platform untuk penyimpanan buku digital. Kamu bisa mulai membaca
+            buku dengan mudah kapanpun dan dimanapun. Mari kita tingkatkan
+            Literasi Indonesia, Baca Buku Minimal 1 Jam Perhari. Untuk
+            memperluas pengetahuan umum.
+          </p>
+        </div>
+      </section>
+      <section class="input_section" id="tentang">
+        <h2>Masukkan Buku Baru</h2>
+        <form id="tambahBuku">
+          <div class="input">
+            <label for="judulBuku">Judul</label>
+            <input
+              id="judulBuku"
+              type="text"
+              placeholder="Isikan Judul dari Buku"
+              required
+            />
+          </div>
+          <div class="input">
+            <label for="authorBook">Penulis</label>
+            <input
+              id="authorBook"
+              type="text"
+              placeholder="Isikan Penulis dari Buku"
+              required
+            />
+          </div>
+          <div class="input">
+            <label for="year_book">Tahun Terbit</label>
+            <input
+              id="year_book"
+              type="number"
+              placeholder="Tulis Tahun Menggunakan Angka Saja"
+              required
+            />
+          </div>
+          <p>Pilih Status Buku:</p>
+          <div class="input_inline">
+            <label for="buku_belumdibaca">Belum Dibaca</label>
+            <input id="buku_belumdibaca" type="checkbox" />
+          </div>
+          <div class="input_inline">
+            <label for="buku_sudahdibaca">Selesai Dibaca</label>
+            <input id="buku_sudahdibaca" type="checkbox" />
+          </div>
+          <button id="bookSubmit" type="submit">
+            Tambahkan Buku Ke Koleksi
+          </button>
+        </form>
+      </section>
+
+      <section class="book_shelf" id="koleksi">
+        <h2>Belum Selesai Dibaca</h2>
+
+        <div id="ListBuku_belumDibaca" class="book_list"></div>
+      </section>
+
+      <section class="book_shelf">
+        <h2>Selesai Dibaca</h2>
+
+        <div id="ListBuku_sudahDibaca" class="book_list"></div>
+      </section>
+    </main>
+
+  <footer class="footer">
+    <p>&copy; 2024 | Putri Adelia Khairunnisa.</p>
+  </footer>
+    <script src="index.js"></script>
+  </body>
+</html>
