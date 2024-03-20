@@ -63,7 +63,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const timestamp = +new Date();
   article.id = `Buku_${timestamp}`;
-  console.log(`ID buku: ${article.id}`);
 
     const h3 = document.createElement("h3");
     h3.textContent = title;
@@ -173,13 +172,19 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function editBookInfo(article, editedTitle, editedAuthor, editedYear) {
+    const id = article.id;
     article.querySelector("h3").textContent = editedTitle;
-    article.querySelector(
-      "p:nth-child(2)"
-    ).textContent = `Penulis: ${editedAuthor}`;
-    article.querySelector(
-      "p:nth-child(3)"
-    ).textContent = `Tahun: ${editedYear}`;
+    article.querySelector("p:nth-child(2)").textContent = `Penulis: ${editedAuthor}`;
+    article.querySelector("p:nth-child(3)").textContent = `Tahun: ${editedYear}`;
+
+    const storedBooks = JSON.parse(localStorage.getItem("books"));
+    const bookIndex = storedBooks.findIndex(book => book.id === id);
+    if (bookIndex !== -1) {
+      storedBooks[bookIndex].title = editedTitle;
+      storedBooks[bookIndex].author = editedAuthor;
+      storedBooks[bookIndex].year = parseInt(editedYear);
+      localStorage.setItem("books", JSON.stringify(storedBooks));
+    }
   }
 
   function tambah_data(title, author, year, isComplete) {
@@ -189,44 +194,48 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       ListBuku_belumDibaca.appendChild(bookItem);
     }
-
-    console.log("Data Buku Ditambahkan:");
-    console.log("Judul:", title);
-    console.log("Penulis:", author);
-    console.log("Tahun:", year);
-    console.log("Status:", isComplete ? "Sudah Dibaca" : "Belum Dibaca");
+  
+    const timestamp = +new Date();
+    const bookObject = {
+      id: `Buku_${timestamp}`,
+      title: title,
+      author: author,
+      year: parseInt(year),
+      isComplete: isComplete
+    };
+  
+    console.log(bookObject); // Menampilkan objek buku di konsol
   }
+  
 
   function hapus_buku(bookItem) {
+    const id = bookItem.id;
     bookItem.remove();
+  
+    // Perbarui data di localStorage
+    const storedBooks = JSON.parse(localStorage.getItem("books"));
+    const updatedBooks = storedBooks.filter(book => book.id !== id);
+    localStorage.setItem("books", JSON.stringify(updatedBooks));
   }
 
   function simpan_local() {
     const incompleteBooks = [];
     const completeBooks = [];
-
+  
     ListBuku_belumDibaca.querySelectorAll(".book_item").forEach((bookItem) => {
       const title = bookItem.querySelector("h3").textContent;
-      const author = bookItem
-        .querySelector("p:nth-child(2)")
-        .textContent.split(": ")[1];
-      const year = bookItem
-        .querySelector("p:nth-child(3)")
-        .textContent.split(": ")[1];
-      incompleteBooks.push({ title, author, year, isComplete: false });
+      const author = bookItem.querySelector("p:nth-child(2)").textContent.split(": ")[1];
+      const year = bookItem.querySelector("p:nth-child(3)").textContent.split(": ")[1];
+      incompleteBooks.push({ id: bookItem.id, title, author, year, isComplete: false });
     });
-
+  
     ListBuku_sudahDibaca.querySelectorAll(".book_item").forEach((bookItem) => {
       const title = bookItem.querySelector("h3").textContent;
-      const author = bookItem
-        .querySelector("p:nth-child(2)")
-        .textContent.split(": ")[1];
-      const year = bookItem
-        .querySelector("p:nth-child(3)")
-        .textContent.split(": ")[1];
-      completeBooks.push({ title, author, year, isComplete: true });
+      const author = bookItem.querySelector("p:nth-child(2)").textContent.split(": ")[1];
+      const year = bookItem.querySelector("p:nth-child(3)").textContent.split(": ")[1];
+      completeBooks.push({ id: bookItem.id, title, author, year, isComplete: true });
     });
-
+  
     const allBooks = [...incompleteBooks, ...completeBooks];
     localStorage.setItem("books", JSON.stringify(allBooks));
   }
